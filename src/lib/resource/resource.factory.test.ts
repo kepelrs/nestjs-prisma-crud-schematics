@@ -94,30 +94,18 @@ export class UserController {
 
     it('should generate "UserService" class', () => {
       expect(tree.readContent('/user/user.service.ts'))
-        .toEqual(`import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+        .toEqual(`import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaCrudService } from 'nestjs-prisma-crud';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
-export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
-
-  findAll() {
-    return \`This action returns all user\`;
-  }
-
-  findOne(id: number) {
-    return \`This action returns a #\${id} user\`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return \`This action updates a #\${id} user\`;
-  }
-
-  remove(id: number) {
-    return \`This action removes a #\${id} user\`;
+export class UserService extends PrismaCrudService {
+  constructor(public prismaService: PrismaService) {
+    super({
+      repo: prismaService.user,
+      allowedJoins: [],
+      defaultJoins: [],
+    });
   }
 }
 `);
