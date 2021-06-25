@@ -2,7 +2,7 @@
   "moduleFileExtensions": ["js", "ts"],
   "rootDir": ".",
   "testEnvironment": "node",
-  "testRegex": ".(test|spec).ts$",
+  "testRegex": "resource.factory.(test|spec).ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },

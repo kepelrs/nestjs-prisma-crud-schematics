@@ -36,16 +36,11 @@ export interface ResourceOptions {
   /**
    * The transport layer.
    */
-  type?:
-    | 'rest'
-    | 'graphql-code-first'
-    | 'graphql-schema-first'
-    | 'microservice'
-    | 'ws';
+  type?: 'rest' | string;
   /**
    * When true, CRUD entry points are generated.
    */
-  crud?: boolean;
+  crud?: true;
   /**
    * Flag to indicate if a directory is created.
    */

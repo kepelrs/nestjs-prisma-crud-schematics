@@ -64,6 +64,8 @@ function transform(options: ResourceOptions): ResourceOptions {
     ? target.path
     : join(target.path as Path, target.name);
   target.isSwaggerInstalled = options.isSwaggerInstalled ?? false;
+  target.crud = true;
+  target.type = 'rest';
 
   return target;
 }
@@ -73,46 +75,16 @@ function generate(options: ResourceOptions): Source {
     apply(url(join('./files' as Path, options.language)), [
       filter((path) => {
         if (path.endsWith('.dto.ts')) {
-          return (
-            options.type !== 'graphql-code-first' &&
-            options.type !== 'graphql-schema-first' &&
-            options.crud
-          );
+          return options.crud;
         }
-        if (path.endsWith('.input.ts')) {
-          return (
-            (options.type === 'graphql-code-first' ||
-              options.type === 'graphql-schema-first') &&
-            options.crud
-          );
-        }
-        if (
-          path.endsWith('.resolver.ts') ||
-          path.endsWith('.resolver.spec.ts')
-        ) {
-          return (
-            options.type === 'graphql-code-first' ||
-            options.type === 'graphql-schema-first'
-          );
-        }
-        if (path.endsWith('.graphql')) {
-          return options.type === 'graphql-schema-first' && options.crud;
-        }
+
         if (
           path.endsWith('controller.ts') ||
           path.endsWith('.controller.spec.ts')
         ) {
-          return options.type === 'microservice' || options.type === 'rest';
+          return options.type === 'rest';
         }
-        if (path.endsWith('.gateway.ts') || path.endsWith('.gateway.spec.ts')) {
-          return options.type === 'ws';
-        }
-        if (path.includes('@ent')) {
-          // Entity class file workaround
-          // When an invalid glob path for entities has been specified (on the application part)
-          // TypeORM was trying to load a template class
-          return options.crud;
-        }
+
         return true;
       }),
       options.spec ? noop() : filter((path) => !path.endsWith('.spec.ts')),

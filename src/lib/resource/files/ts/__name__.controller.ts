@@ -12,52 +12,35 @@ export class <%= classify(name) %>Controller {
   constructor(private readonly <%= lowercased(name) %>Service: <%= classify(name) %>Service) {}<% if (type === 'rest' && crud) { %>
 
   @Post()
-  create(@Body() create<%= singular(classify(name)) %>Dto: Create<%= singular(classify(name)) %>Dto) {
-    return this.<%= lowercased(name) %>Service.create(create<%= singular(classify(name)) %>Dto);
+  async create(@Body() create<%= singular(classify(name)) %>Dto: Create<%= singular(classify(name)) %>Dto) {
+    const created = await this.<%= lowercased(name) %>Service.create(create<%= singular(classify(name)) %>Dto);
+    return created;
   }
 
   @Get()
-  findAll() {
-    return this.<%= lowercased(name) %>Service.findAll();
+  async findAll(@Query('crudQ') crudQ?: string) {
+    const matches = await this.<%= lowercased(name) %>Service.findAll(crudQ);
+    return matches;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.<%= lowercased(name) %>Service.findOne(+id);
+  async findOne(@Param('id') id: string, @Query('crudQ') crudQ?: string) {
+    const match = await this.<%= lowercased(name) %>Service.findOne(id, crudQ);
+    return match;
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() update<%= singular(classify(name)) %>Dto: Update<%= singular(classify(name)) %>Dto) {
-    return this.<%= lowercased(name) %>Service.update(+id, update<%= singular(classify(name)) %>Dto);
+  async update(
+    @Param('id') id: string,
+    @Body() update<%= singular(classify(name)) %>Dto: Update<%= singular(classify(name)) %>Dto,
+    @Query('crudQ') crudQ?: string,
+  ) {
+    const updated = await this.<%= lowercased(name) %>Service.update(id, update<%= singular(classify(name)) %>Dto, crudQ);
+    return updated;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.<%= lowercased(name) %>Service.remove(+id);
-  }<% } else if (type === 'microservice' && crud) { %>
-
-  @MessagePattern('create<%= singular(classify(name)) %>')
-  create(@Payload() create<%= singular(classify(name)) %>Dto: Create<%= singular(classify(name)) %>Dto) {
-    return this.<%= lowercased(name) %>Service.create(create<%= singular(classify(name)) %>Dto);
-  }
-
-  @MessagePattern('findAll<%= classify(name) %>')
-  findAll() {
-    return this.<%= lowercased(name) %>Service.findAll();
-  }
-
-  @MessagePattern('findOne<%= singular(classify(name)) %>')
-  findOne(@Payload() id: number) {
-    return this.<%= lowercased(name) %>Service.findOne(id);
-  }
-
-  @MessagePattern('update<%= singular(classify(name)) %>')
-  update(@Payload() update<%= singular(classify(name)) %>Dto: Update<%= singular(classify(name)) %>Dto) {
-    return this.<%= lowercased(name) %>Service.update(update<%= singular(classify(name)) %>Dto.id, update<%= singular(classify(name)) %>Dto);
-  }
-
-  @MessagePattern('remove<%= singular(classify(name)) %>')
-  remove(@Payload() id: number) {
-    return this.<%= lowercased(name) %>Service.remove(id);
+  async remove(@Param('id') id: string, @Query('crudQ') crudQ?: string) {
+    return this.<%= lowercased(name) %>Service.remove(id, crudQ);
   }<% } %>
 }
