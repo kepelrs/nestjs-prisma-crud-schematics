@@ -17,7 +17,7 @@ import {
 } from '@angular-devkit/schematics';
 import { Location, NameParser } from '../../utils/name.parser';
 import { mergeSourceRoot } from '../../utils/source-root.helpers';
-import { ResourceOptions } from './resource.schema';
+import { CrudResourceOptions } from './crud-resource.schema';
 import { classify } from '@angular-devkit/core/src/utils/strings';
 import * as pluralize from 'pluralize';
 import { ModuleFinder, ModuleDeclarator, DeclarationOptions } from '../..';
@@ -28,7 +28,7 @@ import {
 } from '../../utils/dependencies.utils';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
-export function main(options: ResourceOptions): Rule {
+export function main(options: CrudResourceOptions): Rule {
   options = transform(options);
 
   return (tree: Tree, context: SchematicContext) => {
@@ -43,8 +43,8 @@ export function main(options: ResourceOptions): Rule {
   };
 }
 
-function transform(options: ResourceOptions): ResourceOptions {
-  const target: ResourceOptions = Object.assign({}, options);
+function transform(options: CrudResourceOptions): CrudResourceOptions {
+  const target: CrudResourceOptions = Object.assign({}, options);
   if (!target.name) {
     throw new SchematicsException('Option (name) is required.');
   }
@@ -56,7 +56,7 @@ function transform(options: ResourceOptions): ResourceOptions {
   target.language = target.language !== undefined ? target.language : 'ts';
   if (target.language === 'js') {
     throw new Error(
-      'The "resource" schematic does not support JavaScript language (only TypeScript is supported).',
+      'The "crud-resource" schematic does not support JavaScript language (only TypeScript is supported).',
     );
   }
 
@@ -70,7 +70,7 @@ function transform(options: ResourceOptions): ResourceOptions {
   return target;
 }
 
-function generate(options: ResourceOptions): Source {
+function generate(options: CrudResourceOptions): Source {
   return (context: SchematicContext) =>
     apply(url(join('./files' as Path, options.language)), [
       filter((path) => {
@@ -104,7 +104,7 @@ function generate(options: ResourceOptions): Source {
     ])(context);
 }
 
-function addDeclarationToModule(options: ResourceOptions): Rule {
+function addDeclarationToModule(options: CrudResourceOptions): Rule {
   return (tree: Tree) => {
     if (options.skipImport !== undefined && options.skipImport) {
       return tree;
@@ -129,7 +129,7 @@ function addDeclarationToModule(options: ResourceOptions): Rule {
   };
 }
 
-function addMappedTypesDependencyIfApplies(options: ResourceOptions): Rule {
+function addMappedTypesDependencyIfApplies(options: CrudResourceOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     try {
       if (options.type === 'graphql-code-first') {

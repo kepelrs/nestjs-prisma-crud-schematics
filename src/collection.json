@@ -95,10 +95,10 @@
       "description": "Create a Nest application (mono-repo).",
       "schema": "./lib/sub-app/schema.json"
     },
-    "resource": {
-      "factory": "./lib/resource/resource.factory#main",
-      "description": "Create a Nest resource.",
-      "schema": "./lib/resource/schema.json"
+    "crud-resource": {
+      "factory": "./lib/crud-resource/crud-resource.factory#main",
+      "description": "Create a Nest crud-resource.",
+      "schema": "./lib/crud-resource/schema.json"
     }
   }
 }

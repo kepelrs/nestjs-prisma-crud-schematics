@@ -3,9 +3,9 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
-import { ResourceOptions } from './resource.schema';
+import { CrudResourceOptions } from './crud-resource.schema';
 
-describe('Resource Factory', () => {
+describe('CrudResource Factory', () => {
   const runner: SchematicTestRunner = new SchematicTestRunner(
     '.',
     path.join(process.cwd(), 'src/collection.json'),
@@ -13,11 +13,11 @@ describe('Resource Factory', () => {
 
   describe('[REST API]', () => {
     it('should generate appropriate files ', async () => {
-      const options: ResourceOptions = {
+      const options: CrudResourceOptions = {
         name: 'user',
       };
       const tree = await runner
-        .runSchematicAsync('resource', options)
+        .runSchematicAsync('crud-resource', options)
         .toPromise();
       const files = tree.files;
       expect(files).toEqual([
@@ -34,7 +34,7 @@ describe('Resource Factory', () => {
   });
 
   describe('[REST API]', () => {
-    const options: ResourceOptions = {
+    const options: CrudResourceOptions = {
       name: 'user',
       isSwaggerInstalled: true,
     };
@@ -42,7 +42,7 @@ describe('Resource Factory', () => {
     let tree: UnitTestTree;
 
     beforeAll(async () => {
-      tree = await runner.runSchematicAsync('resource', options).toPromise();
+      tree = await runner.runSchematicAsync('crud-resource', options).toPromise();
     });
 
     it('should generate "UserController" class', () => {

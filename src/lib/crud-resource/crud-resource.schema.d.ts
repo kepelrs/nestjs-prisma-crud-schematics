@@ -1,12 +1,12 @@
 import { Path } from '@angular-devkit/core';
 
-export interface ResourceOptions {
+export interface CrudResourceOptions {
   /**
-   * The name of the resource.
+   * The name of the crud-resource.
    */
   name: string;
   /**
-   * The path to create the resource.
+   * The path to create the crud-resource.
    */
   path?: string | Path;
   /**
