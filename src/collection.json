@@ -21,6 +21,11 @@
       "description": "Create a Nest controller.",
       "schema": "./lib/controller/schema.json"
     },
+    "crud-resource": {
+      "factory": "./lib/crud-resource/crud-resource.factory#main",
+      "description": "Create a Nest crud-resource.",
+      "schema": "./lib/crud-resource/schema.json"
+    },
     "decorator": {
       "factory": "./lib/decorator/decorator.factory#main",
       "description": "Create a Nest decorator.",

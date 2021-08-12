@@ -18,7 +18,7 @@ describe('SubApp Factory', () => {
     const files: string[] = tree.files;
     expect(files).toEqual([
       '/nest-cli.json',
-      '/apps/nestjs-schematics/tsconfig.app.json',
+      "/apps/nestjs-prisma-crud-schematics/tsconfig.app.json",
       '/apps/project/tsconfig.app.json',
       '/apps/project/src/main.ts',
       '/apps/project/src/project.controller.spec.ts',
@@ -37,7 +37,7 @@ describe('SubApp Factory', () => {
     const files: string[] = tree.files;
     expect(files).toEqual([
       '/nest-cli.json',
-      '/apps/nestjs-schematics/tsconfig.app.json',
+      "/apps/nestjs-prisma-crud-schematics/tsconfig.app.json",
       '/apps/awesome-project/tsconfig.app.json',
       '/apps/awesome-project/src/main.ts',
       '/apps/awesome-project/src/awesome-project.controller.spec.ts',
@@ -57,9 +57,9 @@ describe('SubApp Factory', () => {
     const files: string[] = tree.files;
     expect(files).toEqual([
       '/nest-cli.json',
-      '/apps/nestjs-schematics/.babelrc',
-      '/apps/nestjs-schematics/index.js',
-      '/apps/nestjs-schematics/jsconfig.json',
+      "/apps/nestjs-prisma-crud-schematics/.babelrc",
+      "/apps/nestjs-prisma-crud-schematics/index.js",
+      "/apps/nestjs-prisma-crud-schematics/jsconfig.json",
       '/apps/project/.babelrc',
       '/apps/project/index.js',
       '/apps/project/jsconfig.json',

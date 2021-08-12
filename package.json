@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs/schematics",
+  "name": "nestjs-prisma-crud-schematics",
   "version": "8.0.2",
   "description": "Nest - modern, fast, powerful node.js web framework (@schematics)",
   "main": "dist/index.js",
