@@ -47,7 +47,7 @@ describe('CrudResource Factory', () => {
 
     it('should generate "UserController" class', () => {
       expect(tree.readContent('/user/user.controller.ts'))
-        .toEqual(`import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+        .toEqual(`import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -94,7 +94,7 @@ export class UserController {
 
     it('should generate "UserService" class', () => {
       expect(tree.readContent('/user/user.service.ts'))
-        .toEqual(`import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+        .toEqual(`import { Injectable } from '@nestjs/common';
 import { PrismaCrudService } from 'nestjs-prisma-crud';
 import { PrismaService } from '../prisma.service';
 
