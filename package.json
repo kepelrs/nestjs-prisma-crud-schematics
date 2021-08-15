@@ -44,7 +44,8 @@
     "@angular-devkit/schematics": "12.0.5",
     "fs-extra": "10.0.0",
     "jsonc-parser": "3.0.0",
-    "pluralize": "8.0.0"
+    "pluralize": "8.0.0",
+    "typescript": "3.9.10"
   },
   "devDependencies": {
     "@commitlint/cli": "13.1.0",
@@ -65,11 +66,7 @@
     "nyc": "15.1.0",
     "release-it": "14.11.3",
     "ts-jest": "27.0.4",
-    "ts-node": "10.2.0",
-    "typescript": "3.9.10"
-  },
-  "peerDependencies": {
-    "typescript": "^3.4.5 || ^4.3.5"
+    "ts-node": "10.2.0"
   },
   "schematics": "./dist/collection.json",
   "husky": {
