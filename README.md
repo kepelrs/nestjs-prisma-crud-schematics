@@ -1,3 +1,5 @@
+> This repository is a fork of [@nestjs/schematics](https://github.com/nestjs/schematics) containing the `crud-resource` schematic for the [nestjs-prisma-crud](https://github.com/kepelrs/nestjs-prisma-crud) package.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -21,7 +23,7 @@ The Nest CLI is a command-line interface tool that helps you to initialize, deve
 ## Installation
 
 ```
-$ npm install -g @nestjs/schematics
+$ npm install -g nestjs-prisma-crud-schematics
 ```
 
 ## Usage

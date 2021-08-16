@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nestjs/schematics.git"
+    "url": "git+https://github.com/kepelrs/nestjs-prisma-crud-schematics.git"
   },
   "contributors": [
     "ThomRick",
@@ -36,9 +36,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nestjs/schematics/issues"
+    "url": "https://github.com/kepelrs/nestjs-prisma-crud-schematics/issues"
   },
-  "homepage": "https://github.com/nestjs/schematics#readme",
+  "homepage": "https://github.com/kepelrs/nestjs-prisma-crud-schematics#readme",
   "dependencies": {
     "@angular-devkit/core": "12.0.5",
     "@angular-devkit/schematics": "12.0.5",
