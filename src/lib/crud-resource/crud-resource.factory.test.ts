@@ -57,20 +57,20 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    const created = await this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto, @Query('crudQuery') crudQuery: string) {
+    const created = await this.userService.create(createUserDto, crudQuery);
     return created;
   }
 
   @Get()
-  async findAll(@Query('crudQ') crudQ?: string) {
-    const matches = await this.userService.findAll(crudQ);
+  async findMany(@Query('crudQuery') crudQuery: string) {
+    const matches = await this.userService.findMany(crudQuery);
     return matches;
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string, @Query('crudQ') crudQ?: string) {
-    const match = await this.userService.findOne(id, crudQ);
+  async findOne(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
+    const match = await this.userService.findOne(id, crudQuery);
     return match;
   }
 
@@ -78,15 +78,15 @@ export class UserController {
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-    @Query('crudQ') crudQ?: string,
+    @Query('crudQuery') crudQuery: string,
   ) {
-    const updated = await this.userService.update(id, updateUserDto, crudQ);
+    const updated = await this.userService.update(id, updateUserDto, crudQuery);
     return updated;
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string, @Query('crudQ') crudQ?: string) {
-    return this.userService.remove(id, crudQ);
+  async remove(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
+    return this.userService.remove(id, crudQuery);
   }
 }
 `);
@@ -102,7 +102,8 @@ import { PrismaService } from '../prisma.service';
 export class UserService extends PrismaCrudService {
   constructor(public prismaService: PrismaService) {
     super({
-      repo: prismaService.user,
+      model: 'user',
+      prismaClient: prismaService,
       allowedJoins: [],
       defaultJoins: [],
     });

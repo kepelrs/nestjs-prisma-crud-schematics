@@ -6,7 +6,8 @@ import { PrismaService } from '../prisma.service';
 export class <%= classify(name) %>Service extends PrismaCrudService {<% if (crud) { %>
   constructor(public prismaService: PrismaService) {
     super({
-      repo: prismaService.<%= lowercased(name) %>,
+      model: '<%= lowercased(name) %>',
+      prismaClient: prismaService,
       allowedJoins: [],
       defaultJoins: [],
     });

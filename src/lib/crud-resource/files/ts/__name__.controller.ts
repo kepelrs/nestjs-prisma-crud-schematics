@@ -12,20 +12,20 @@ export class <%= classify(name) %>Controller {
   constructor(private readonly <%= lowercased(name) %>Service: <%= classify(name) %>Service) {}<% if (type === 'rest' && crud) { %>
 
   @Post()
-  async create(@Body() create<%= singular(classify(name)) %>Dto: Create<%= singular(classify(name)) %>Dto) {
-    const created = await this.<%= lowercased(name) %>Service.create(create<%= singular(classify(name)) %>Dto);
+  async create(@Body() create<%= singular(classify(name)) %>Dto: Create<%= singular(classify(name)) %>Dto, @Query('crudQuery') crudQuery: string) {
+    const created = await this.<%= lowercased(name) %>Service.create(create<%= singular(classify(name)) %>Dto, crudQuery);
     return created;
   }
 
   @Get()
-  async findAll(@Query('crudQ') crudQ?: string) {
-    const matches = await this.<%= lowercased(name) %>Service.findAll(crudQ);
+  async findMany(@Query('crudQuery') crudQuery: string) {
+    const matches = await this.<%= lowercased(name) %>Service.findMany(crudQuery);
     return matches;
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string, @Query('crudQ') crudQ?: string) {
-    const match = await this.<%= lowercased(name) %>Service.findOne(id, crudQ);
+  async findOne(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
+    const match = await this.<%= lowercased(name) %>Service.findOne(id, crudQuery);
     return match;
   }
 
@@ -33,14 +33,14 @@ export class <%= classify(name) %>Controller {
   async update(
     @Param('id') id: string,
     @Body() update<%= singular(classify(name)) %>Dto: Update<%= singular(classify(name)) %>Dto,
-    @Query('crudQ') crudQ?: string,
+    @Query('crudQuery') crudQuery: string,
   ) {
-    const updated = await this.<%= lowercased(name) %>Service.update(id, update<%= singular(classify(name)) %>Dto, crudQ);
+    const updated = await this.<%= lowercased(name) %>Service.update(id, update<%= singular(classify(name)) %>Dto, crudQuery);
     return updated;
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string, @Query('crudQ') crudQ?: string) {
-    return this.<%= lowercased(name) %>Service.remove(id, crudQ);
+  async remove(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
+    return this.<%= lowercased(name) %>Service.remove(id, crudQuery);
   }<% } %>
 }
