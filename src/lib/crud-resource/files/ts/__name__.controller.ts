@@ -13,19 +13,19 @@ export class <%= classify(name) %>Controller {
 
   @Post()
   async create(@Body() create<%= singular(classify(name)) %>Dto: Create<%= singular(classify(name)) %>Dto, @Query('crudQuery') crudQuery: string) {
-    const created = await this.<%= lowercased(name) %>Service.create(create<%= singular(classify(name)) %>Dto, crudQuery);
+    const created = await this.<%= lowercased(name) %>Service.create(create<%= singular(classify(name)) %>Dto, { crudQuery });
     return created;
   }
 
   @Get()
   async findMany(@Query('crudQuery') crudQuery: string) {
-    const matches = await this.<%= lowercased(name) %>Service.findMany(crudQuery);
+    const matches = await this.<%= lowercased(name) %>Service.findMany({ crudQuery });
     return matches;
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
-    const match = await this.<%= lowercased(name) %>Service.findOne(id, crudQuery);
+    const match = await this.<%= lowercased(name) %>Service.findOne(id, { crudQuery });
     return match;
   }
 
@@ -35,12 +35,12 @@ export class <%= classify(name) %>Controller {
     @Body() update<%= singular(classify(name)) %>Dto: Update<%= singular(classify(name)) %>Dto,
     @Query('crudQuery') crudQuery: string,
   ) {
-    const updated = await this.<%= lowercased(name) %>Service.update(id, update<%= singular(classify(name)) %>Dto, crudQuery);
+    const updated = await this.<%= lowercased(name) %>Service.update(id, update<%= singular(classify(name)) %>Dto, { crudQuery });
     return updated;
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
-    return this.<%= lowercased(name) %>Service.remove(id, crudQuery);
+    return this.<%= lowercased(name) %>Service.remove(id, { crudQuery });
   }<% } %>
 }
