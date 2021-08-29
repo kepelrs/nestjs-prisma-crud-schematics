@@ -152,6 +152,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {}
     it('should generate "UserController" spec file', () => {
       expect(tree.readContent('/user/user.controller.spec.ts'))
         .toEqual(`import { Test, TestingModule } from '@nestjs/testing';
+import { PrismaService } from '../prisma.service';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -161,7 +162,7 @@ describe('UserController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService],
+      providers: [UserService, PrismaService],
     }).compile();
 
     controller = module.get<UserController>(UserController);
@@ -177,6 +178,7 @@ describe('UserController', () => {
     it('should generate "UserService" spec file', () => {
       expect(tree.readContent('/user/user.service.spec.ts'))
         .toEqual(`import { Test, TestingModule } from '@nestjs/testing';
+import { PrismaService } from '../prisma.service';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
@@ -184,7 +186,7 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService],
+      providers: [UserService, PrismaService],
     }).compile();
 
     service = module.get<UserService>(UserService);
