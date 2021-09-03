@@ -28,7 +28,6 @@ describe('CrudResource Factory', () => {
         '/user/user.service.ts',
         '/user/dto/create-user.dto.ts',
         '/user/dto/update-user.dto.ts',
-        '/user/entities/user.entity.ts',
       ]);
     });
   });
@@ -124,12 +123,6 @@ import { PrismaService } from '../prisma.service';
   providers: [UserService, PrismaService]
 })
 export class UserModule {}
-`);
-    });
-
-    it('should generate "User" class', () => {
-      expect(tree.readContent('/user/entities/user.entity.ts'))
-        .toEqual(`export class User {}
 `);
     });
 
