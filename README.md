@@ -23,7 +23,7 @@ The Nest CLI is a command-line interface tool that helps you to initialize, deve
 ## Installation
 
 ```
-$ npm install -g nestjs-prisma-crud-schematics
+$ npm install nestjs-prisma-crud-schematics --save-dev
 ```
 
 ## Usage
