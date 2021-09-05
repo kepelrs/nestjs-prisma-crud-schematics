@@ -95,14 +95,12 @@ export class UserController {
       expect(tree.readContent('/user/user.service.ts'))
         .toEqual(`import { Injectable } from '@nestjs/common';
 import { PrismaCrudService } from 'nestjs-prisma-crud';
-import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class UserService extends PrismaCrudService {
-  constructor(public prismaService: PrismaService) {
+  constructor() {
     super({
       model: 'user',
-      prismaClient: prismaService,
       allowedJoins: [],
       defaultJoins: [],
     });
@@ -116,11 +114,10 @@ export class UserService extends PrismaCrudService {
         .toEqual(`import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { PrismaService } from '../prisma.service';
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, PrismaService]
+  providers: [UserService]
 })
 export class UserModule {}
 `);
@@ -145,7 +142,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {}
     it('should generate "UserController" spec file', () => {
       expect(tree.readContent('/user/user.controller.spec.ts'))
         .toEqual(`import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma.service';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -155,7 +151,7 @@ describe('UserController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService, PrismaService],
+      providers: [UserService],
     }).compile();
 
     controller = module.get<UserController>(UserController);
@@ -171,7 +167,6 @@ describe('UserController', () => {
     it('should generate "UserService" spec file', () => {
       expect(tree.readContent('/user/user.service.spec.ts'))
         .toEqual(`import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma.service';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
@@ -179,7 +174,7 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService, PrismaService],
+      providers: [UserService],
     }).compile();
 
     service = module.get<UserService>(UserService);
