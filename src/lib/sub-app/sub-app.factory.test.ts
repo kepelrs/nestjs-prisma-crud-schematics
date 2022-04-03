@@ -62,7 +62,7 @@ describe('SubApp Factory', () => {
     const files: string[] = tree.files;
     expect(files).toEqual([
       '/nest-cli.json',
-      '/apps/nestjs-schematics/tsconfig.app.json',
+      '/apps/nestjs-prisma-crud-schematics/tsconfig.app.json',
       '/apps/_project/tsconfig.app.json',
       '/apps/_project/src/main.ts',
       '/apps/_project/src/_project.controller.spec.ts',
