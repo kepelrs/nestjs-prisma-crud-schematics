@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "automerge": true,
-      "matchPaths": ["sample/package.json"]
+      "matchPaths": ["sample/**"]
     }
   ],
   "extends": ["config:base"]
