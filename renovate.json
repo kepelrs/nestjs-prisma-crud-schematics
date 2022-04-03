@@ -2,7 +2,6 @@
   "semanticCommits": true,
   "packageRules": [
     {
-      "depTypeList": ["devDependencies"],
       "automerge": true,
       "matchPaths": ["sample/package.json"]
     }
