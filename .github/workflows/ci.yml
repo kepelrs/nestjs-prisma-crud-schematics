@@ -1,0 +1,81 @@
+name: ci
+on: [push, pull_request]
+# on:
+# push:
+#   branches:
+#     - master
+#     - 'v*.*.*'
+jobs:
+  run-tests:
+    name: Run tests on Node ${{ matrix.node }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ['12.x']
+        os: [ubuntu-latest, macOS-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: |
+          npm i
+          npm test
+
+  run-build:
+    name: Build Node ${{ matrix.node }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ['12.x']
+        os: [ubuntu-latest, macOS-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: |
+          npm i
+          npm run build
+          npm pack
+          mv nestjs-prisma-crud-schematics-*.tgz sample/packed.tgz
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./sample/*
+          key: ${{ github.sha }}
+          # restore-keys: |
+          #   packed-cache
+          #   packed-cache-test
+
+  run-sample:
+    name: Run schematic sample on Node ${{ matrix.node }} and ${{ matrix.os }}
+    needs: [run-build]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ['14.x', '16.x']
+        os: [ubuntu-latest, macOS-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./sample/*
+          key: ${{ github.sha }}
+          # restore-keys: |
+          #   packed-cache
+          #   packed-cache-test
+      - run: |
+          cd sample
+          npm i -g @nestjs/cli
+          npm i
+          npm install --save-dev ./packed.tgz
+          npx prisma migrate dev
+          nest g -c nestjs-prisma-crud-schematics crud-resource post
+          npm run start:dev &
+          sleep 30
+          curl --fail "http://localhost:3000/post"
