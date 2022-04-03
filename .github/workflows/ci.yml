@@ -6,12 +6,12 @@ on: [push, pull_request]
 #     - master
 #     - 'v*.*.*'
 jobs:
-  run-tests:
+  tests:
     name: Run tests on Node ${{ matrix.node }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['12.x']
+        node: ['16.x']
         os: [ubuntu-latest, macOS-latest]
     steps:
       - uses: actions/checkout@v2
@@ -22,12 +22,12 @@ jobs:
           npm i
           npm test
 
-  run-build:
+  build:
     name: Build Node ${{ matrix.node }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['12.x']
+        node: ['16.x']
         os: [ubuntu-latest, macOS-latest]
     steps:
       - uses: actions/checkout@v2
@@ -48,9 +48,9 @@ jobs:
           #   packed-cache
           #   packed-cache-test
 
-  run-sample:
+  sample:
     name: Run schematic sample on Node ${{ matrix.node }} and ${{ matrix.os }}
-    needs: [run-build]
+    needs: [build]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -78,4 +78,28 @@ jobs:
           nest g -c nestjs-prisma-crud-schematics crud-resource post
           npm run start:dev &
           sleep 30
+          cat package-lock.json | grep 'nestjs-prisma-crud-schematics'
+          curl --fail "http://localhost:3000/post"
+
+  sample-deployed:
+    name: Run sample-deployed on Node ${{ matrix.node }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ['14.x', '16.x']
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: |
+          cd sample
+          npm i -g @nestjs/cli
+          npm i
+          npx prisma migrate dev
+          nest g -c nestjs-prisma-crud-schematics crud-resource post
+          npm run start:dev &
+          sleep 30
+          cat package-lock.json | grep 'nestjs-prisma-crud-schematics'
           curl --fail "http://localhost:3000/post"
