@@ -9,5 +9,5 @@
   "coverageDirectory": "./coverage",
   "verbose": true,
   "bail": true,
-  "testPathIgnorePatterns": ["/node_modules/", "files"]
+  "testPathIgnorePatterns": ["/node_modules/", "files", "sample"]
 }
