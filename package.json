@@ -1,6 +1,6 @@
 {
   "name": "nestjs-prisma-crud-schematics",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.12",
   "description": "Nest - modern, fast, powerful node.js web framework (@schematics)",
   "main": "dist/index.js",
   "files": [
