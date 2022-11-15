@@ -62,5 +62,5 @@ export interface ResourceOptions {
   /**
    * If true, pluralize is used for file names.
    */
-  pluralize?: true;
+  pluralize?: boolean;
 }

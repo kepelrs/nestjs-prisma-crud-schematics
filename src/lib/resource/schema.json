@@ -31,6 +31,11 @@
       "default": false,
       "description": "Flag to indicate if a directory is created."
     },
+    "pluralize": {
+      "type": "boolean",
+      "default": true,
+      "description": "Flag to determine if plural endings should be removed from dto filenames."
+    },
     "spec": {
       "type": "boolean",
       "default": true,

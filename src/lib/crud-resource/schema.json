@@ -35,6 +35,11 @@
       "type": "boolean",
       "default": true,
       "description": "Specifies if specs file are generated."
+    },
+    "pluralize": {
+      "type": "boolean",
+      "default": true,
+      "description": "Flag to determine if plural endings should be removed from dto filenames."
     }
   },
   "required": ["name"]
