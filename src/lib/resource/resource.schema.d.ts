@@ -59,4 +59,8 @@ export interface ResourceOptions {
    * When true, "@nestjs/swagger" dependency is installed in the project.
    */
   isSwaggerInstalled?: boolean;
+  /**
+   * If true, pluralize is used for file names.
+   */
+  pluralize?: true;
 }
