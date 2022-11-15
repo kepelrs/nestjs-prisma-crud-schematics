@@ -338,6 +338,50 @@ export class UsersModule {}
         '/users/entities/user.entity.ts',
       ]);
     });
+    describe('when "pluralize" is disabled', () => {
+      it('should generate pluralized files when pluralize is false', async () => {
+        const options: ResourceOptions = {
+          name: 'users',
+          pluralize: false,
+          type: 'microservice',
+        };
+        const tree = await runner
+          .runSchematicAsync('resource', options)
+          .toPromise();
+        const files = tree.files;
+        expect(files).toEqual([
+          '/users/users.controller.spec.ts',
+          '/users/users.controller.ts',
+          '/users/users.module.ts',
+          '/users/users.service.spec.ts',
+          '/users/users.service.ts',
+          '/users/dto/create-users.dto.ts',
+          '/users/dto/update-users.dto.ts',
+          '/users/entities/users.entity.ts',
+        ]);
+      })
+      it('should generate pluralized files when pluralize is false', async () => {
+        const options: ResourceOptions = {
+          name: 'users',
+          pluralize: true,
+          type: 'microservice',
+        };
+        const tree = await runner
+          .runSchematicAsync('resource', options)
+          .toPromise();
+        const files = tree.files;
+        expect(files).toEqual([
+          '/users/users.controller.spec.ts',
+          '/users/users.controller.ts',
+          '/users/users.module.ts',
+          '/users/users.service.spec.ts',
+          '/users/users.service.ts',
+          '/users/dto/create-user.dto.ts',
+          '/users/dto/update-user.dto.ts',
+          '/users/entities/user.entity.ts',
+        ]);
+      })
+    })
     describe('when "crud" option is not enabled', () => {
       it('should generate appropriate files (without dtos)', async () => {
         const options: ResourceOptions = {
