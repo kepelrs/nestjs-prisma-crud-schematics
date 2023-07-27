@@ -134,7 +134,7 @@ function generate(options: ResourceOptions): Source {
             classifiedName.charAt(0).toLowerCase() + classifiedName.slice(1)
           );
         },
-        singular: (name: string) => pluralize.singular(name),
+        singular: (name: string) => options.pluralize ? pluralize.singular(name) : name,
         ent: (name: string) => name + '.entity',
       }),
       move(options.path),
