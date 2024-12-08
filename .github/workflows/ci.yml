@@ -39,7 +39,7 @@ jobs:
           npm run build
           npm pack
           mv nestjs-prisma-crud-schematics-*.tgz sample/packed.tgz
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: restore-build
         with:
           path: ./sample/*
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: restore-build
         with:
           path: ./sample/*
